@@ -1,4 +1,4 @@
-参考
+参考官网https://docs.gitlab.com/ee/ci/
 
 1.部署gitlab runner,以debug模式启动，用于输出错误详细信息
 docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /usr/local/lekang/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock gitlab/gitlab-runner:latest --debug run
