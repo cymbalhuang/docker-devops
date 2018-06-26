@@ -3,6 +3,7 @@ vmware->编辑->虚拟网络编辑器
 虚拟机使用桥接模式，桥接到主机网卡
 
 修改配置文件/etc/sysconfig/network-scripts/ifcfg-ens33 
+```
 TYPE=Ethernet
 PROXY_METHOD=none
 BROWSER_ONLY=no
@@ -23,5 +24,6 @@ NETMASK=255.255.255.0
 GATEWAY=172.16.10.1
 DNS1=211.136.192.6
 DNS2=120.196.165.24
+```
 重启网络服务
 service network restart
