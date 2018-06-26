@@ -8,6 +8,7 @@ http://dubbo.apache.org/books/dubbo-admin-book/install/admin-console.html
   修改其中dubbo.registry.address=zookeeper://127.0.0.1:2181
   替换zk地址，为dubbo.registry.address=zookeeper://zookeeper:2181
   zookeeper地址由后面启动容器时传入zk地址
+
 2.打出war包dubbo-admin-2.0.0.war
 
 3.创建Dockerfile内容如下
