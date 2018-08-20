@@ -5,3 +5,5 @@ docker run --privileged=true -t -i -d --name cloudera --hostname=quickstart.clou
 docker exec -ti cloudera /home/cloudera/cloudera-manager --express
 
 登录http://host:7180
+
+如本机端口通，其他机器telnet不通，可能是机器没关闭selinux，必须关闭selinux，重启机器，才能访问
