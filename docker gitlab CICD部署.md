@@ -7,9 +7,11 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
 2.向gitlab注册runner
 
   1)进入runner容器docker exec -it gitlab-runner-debug bash
+  
   2)使用命令gitlab-runner register注册，参考官网https://docs.gitlab.com/runner/register/
-  3）Runner executor docker镜像可以有多个选择，这里使用docker容器来跑，镜像选择alpine，官方推荐一个最小化linux镜像，大小只有4M+，但是里面什么都没有，由于
-    容器要用CI来跑maven打包，maven依赖java,还有ssh的命令处理，经常艰辛搜索及大神指点后使用一个带maven的alpine镜像，打入openssh sshpass包，用于传输
+  
+  3）Runner executor docker镜像可以有多个选择，这里使用docker容器来跑，镜像选择alpine，官方推荐一个最小化linux镜像，大小只有4M+，但是里面什么都没有，由于容器要用CI来跑maven打包，maven依赖java,还有ssh的命令处理，经常艰辛搜索及大神指点后使用一个带maven的alpine镜像，打入openssh sshpass包，用于传输
+  
     容器中打出来的java包，最终镜像的Dockerfile为
     ```
     FROM docker.io/maven:alpine
@@ -17,8 +19,10 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
     ```
     使用命令"docker build -t alpine-maven-sshpass ."打出镜像。
     镜像在注册runner时填入，或者编辑runner配置文件/etc/gitlab-runner/config.toml
+    
     4）配置修改
     参考官网https://docs.gitlab.com/runner/configuration/advanced-configuration.html#advanced-configuration
+    
     ```
     [[runners]]
   name = "runner-debug"
