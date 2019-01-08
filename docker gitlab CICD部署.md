@@ -1,8 +1,11 @@
 参考官网https://docs.gitlab.com/ee/ci/
 
 1.部署gitlab runner,以debug模式启动，用于输出错误详细信息
+
 docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /usr/local/lekang/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock gitlab/gitlab-runner:latest --debug run
+
 2.向gitlab注册runner
+
   1)进入runner容器docker exec -it gitlab-runner-debug bash
   2)使用命令gitlab-runner register注册，参考官网https://docs.gitlab.com/runner/register/
   3）Runner executor docker镜像可以有多个选择，这里使用docker容器来跑，镜像选择alpine，官方推荐一个最小化linux镜像，大小只有4M+，但是里面什么都没有，由于
