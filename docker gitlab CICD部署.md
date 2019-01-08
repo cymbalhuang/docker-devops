@@ -13,10 +13,12 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
   3）Runner executor docker镜像可以有多个选择，这里使用docker容器来跑，镜像选择alpine，官方推荐一个最小化linux镜像，大小只有4M+，但是里面什么都没有，由于容器要用CI来跑maven打包，maven依赖java,还有ssh的命令处理，经常艰辛搜索及大神指点后使用一个带maven的alpine镜像，打入openssh sshpass包，用于传输
   
     容器中打出来的java包，最终镜像的Dockerfile为
+    
     ```
     FROM docker.io/maven:alpine
     RUN apk update && apk add openssh-client openssh sshpass
     ```
+    
     使用命令"docker build -t alpine-maven-sshpass ."打出镜像。
     镜像在注册runner时填入，或者编辑runner配置文件/etc/gitlab-runner/config.toml
     
@@ -41,6 +43,7 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
     extra_hosts = ["nexus.XX.XX:172.16.10.121"]
   [runners.cache]
     ```
+    
     其中clone_url为替换IP，避免使用域名导致无法解析, 而extra_hosts允许用户配置host，用于解析域名，gitlab想得还真周到，一开始没看这份配置浪费好长时间
     想方法处理docker容器域名解析问题，由于此容器由gitlab runner容器内部启动，貌似无解
 3. 编写项目中CI文件
