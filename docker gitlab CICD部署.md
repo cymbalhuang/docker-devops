@@ -16,11 +16,13 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
     FROM docker.io/maven:alpine
     RUN apk update && apk add openssh-client openssh sshpass
     ```
+    
    使用命令"docker build -t alpine-maven-sshpass ."打出镜像。
    镜像在注册runner时填入，或者编辑runner配置文件/etc/gitlab-runner/config.toml
     
    4）配置修改
     参考官网https://docs.gitlab.com/runner/configuration/advanced-configuration.html#advanced-configuration
+    
     ```
     [[runners]]
     name = "runner-debug"
@@ -39,10 +41,12 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
       extra_hosts = ["nexus.XX.XX:172.16.10.121"]
     [runners.cache]
     ```
+    
    其中clone_url为替换IP，避免使用域名导致无法解析, 而extra_hosts允许用户配置host，用于解析域名，gitlab想得还真周到，一开始没看这份配置浪费好长时间
     想方法处理docker容器域名解析问题，由于此容器由gitlab runner容器内部启动，貌似无解
 3. 编写项目中CI文件
   注意docker方式每个阶段由不同容器跑，所以这里打包部署使用一个容器，即不能分build,deploy跑
+  
   ```
   office-build:
   stage: build
