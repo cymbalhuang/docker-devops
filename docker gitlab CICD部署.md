@@ -10,6 +10,26 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
   
   2)使用命令gitlab-runner register注册，参考官网https://docs.gitlab.com/runner/register/
   
+  一次重启机器后重新注册runner出现
+  ERROR: Registering runner... failed                 runner=o7vXM8Ly status=couldn't execute POST against http://10.86.2.122:8011/api/v4/runners: Post http://10.86.2.122:8011/api/v4/runners: dial tcp 10.86.2.122:8011: i/o timeout
+  网络不通，重建gitlab-runner容器提示warning ipv4 forwarding is disabled. networking will not work，原来是没打开ipv4 forward
+  
+  解决办法：
+  
+  vi /etc/sysctl.conf
+  
+  添加文本：
+  
+  net.ipv4.ip_forward=1
+  
+  重启network服务：
+  
+  systemctl restart network
+  
+  重启docker服务：
+  
+  systemctl restart docker
+  
   3）Runner executor docker镜像可以有多个选择，这里使用docker容器来跑，镜像选择alpine，官方推荐一个最小化linux镜像，大小只有4M+，但是里面什么都没有，由于容器要用CI来跑maven打包，maven依赖java,还有ssh的命令处理，经常艰辛搜索及大神指点后使用一个带maven的alpine镜像，打入openssh sshpass包，用于传输容器中打出来的java包，最终镜像的Dockerfile为
     
     FROM docker.io/maven:alpine
