@@ -11,7 +11,9 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
   2)使用命令gitlab-runner register注册，参考官网https://docs.gitlab.com/runner/register/
   
   一次重启机器后重新注册runner出现
+  
   ERROR: Registering runner... failed                 runner=o7vXM8Ly status=couldn't execute POST against http://10.86.2.122:8011/api/v4/runners: Post http://10.86.2.122:8011/api/v4/runners: dial tcp 10.86.2.122:8011: i/o timeout
+  
   网络不通，重建gitlab-runner容器提示warning ipv4 forwarding is disabled. networking will not work，原来是没打开ipv4 forward
   
   解决办法：
