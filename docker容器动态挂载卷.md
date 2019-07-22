@@ -1,5 +1,4 @@
 1. 创建文件dynamic_mount_docker_volume
-
 ```
 #!/bin/sh
 set -e
@@ -33,9 +32,10 @@ docker-enter $CONTAINER mount -o bind /tmpmnt/$SUBROOT/$SUBPATH $CONTPATH
 docker-enter $CONTAINER umount /tmpmnt
 docker-enter $CONTAINER  rmdir /tmpmnt
 ```
-
 $ chmod +x dynamic_mount_docker_volume
+
 $ docker run --rm -v /usr/local/bin:/target jpetazzo/nsenter
+
 $ ./dynamic_mount_docker_volume 955138b6c3ed /tmp/test /src
 
 参考
