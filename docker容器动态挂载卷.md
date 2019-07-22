@@ -41,8 +41,11 @@ $ ./dynamic_mount_docker_volume 955138b6c3ed /tmp/test /src
 将物理机的目录/tmp/test挂载到正在运行的容器test（test容器id：955138b6c3ed）中的/src目录
 
 参考
+
 1.https://phpor.net/blog/post/4576
 
 2.https://github.com/pushiqiang/utils/tree/master/docker
+
+3.http://jpetazzo.github.io/2015/01/13/docker-mount-dynamic-volumes/
 
 
