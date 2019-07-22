@@ -38,6 +38,8 @@ $ docker run --rm -v /usr/local/bin:/target jpetazzo/nsenter
 
 $ ./dynamic_mount_docker_volume 955138b6c3ed /tmp/test /src
 
+将物理机的目录/tmp/test挂载到正在运行的容器test（test容器id：955138b6c3ed）中的/src目录
+
 参考
 1.https://phpor.net/blog/post/4576
 
