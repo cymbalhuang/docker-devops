@@ -10,6 +10,8 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
   
   2)使用命令gitlab-runner register注册，参考官网https://docs.gitlab.com/runner/register/
   
+  注册输入token可以到组下面，使用组创建账号登录获取，同时以管事员账号登录管理后台，编辑新建runner,把Run untagged jobs打勾。
+  
   一次重启机器后重新注册runner出现
   
   ERROR: Registering runner... failed                 runner=o7vXM8Ly status=couldn't execute POST against http://10.86.2.122:8011/api/v4/runners: Post http://10.86.2.122:8011/api/v4/runners: dial tcp 10.86.2.122:8011: i/o timeout
