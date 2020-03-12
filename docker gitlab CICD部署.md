@@ -14,7 +14,13 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
   
   ERROR: Registering runner... failed                 runner=o7vXM8Ly status=couldn't execute POST against http://10.86.2.122:8011/api/v4/runners: Post http://10.86.2.122:8011/api/v4/runners: dial tcp 10.86.2.122:8011: i/o timeout
   
-  网络不通，重建gitlab-runner容器提示warning ipv4 forwarding is disabled. networking will not work，原来是没打开ipv4 forward
+  网络不通有两个可能
+  
+  1)防火墙没开，可以执行下面命令打开，docker容器默认内网网段为172.17.0.0/16
+  
+  firewall-cmd --permanent --zone=public --add-rich-rule="rule family="ipv4" source address="172.17.0.0/16" port protocol="tcp" port="8011" accept"
+  
+  2）重建gitlab-runner容器提示warning ipv4 forwarding is disabled. networking will not work，原来是没打开ipv4 forward
   
   解决办法：
   
