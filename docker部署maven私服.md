@@ -22,3 +22,10 @@ docker run --privileged=true -d -p 8013:8081 --name nexus3 -v /apps/nexus:/nexus
                 root html;
           }
         }
+```
+ [ERROR] [ERROR] Some problems were encountered while processing the POMs:
+ [FATAL] Non-resolvable parent POM for com.appscomm.lekang:lekang-sys-service:0.0.1-SNAPSHOT: Could not transfer artifact org.springframework.boot:spring-boot-starter-parent:pom:2.0.1.RELEASE from/to central (http://nexus.projectx.cn:8090/repository/maven-public/): Not authorized and 'parent.relativePath' points at wrong local POM @ line 13, column 10
+  @ 
+```
+出现上面错误时，要在nexus管理后台管理，Security->Anonymous Access中开启匿名下载。
+  
