@@ -8,6 +8,7 @@ docker run --privileged=true -d -p 8013:8081 --name nexus3 -v /apps/nexus:/nexus
 注意传入参数--privileged=true，不然docker中用户无权限操作外部目录/apps/nexus，日志提示创建失败，导致启动失败
 
 3.nginx使用域名访问时登录有问题，问题出现在nginx配置上，加上proxy_set_header Host $host:80;即可，具体原因未明
+```
   server {
           listen 80;
           server_name domain.com;
@@ -22,6 +23,8 @@ docker run --privileged=true -d -p 8013:8081 --name nexus3 -v /apps/nexus:/nexus
                 root html;
           }
         }
+```
+
 ```
  [ERROR] [ERROR] Some problems were encountered while processing the POMs:
  [FATAL] Non-resolvable parent POM for com.appscomm.lekang:lekang-sys-service:0.0.1-SNAPSHOT: Could not transfer artifact org.springframework.boot:spring-boot-starter-parent:pom:2.0.1.RELEASE from/to central (http://nexus.projectx.cn:8090/repository/maven-public/): Not authorized and 'parent.relativePath' points at wrong local POM @ line 13, column 10
