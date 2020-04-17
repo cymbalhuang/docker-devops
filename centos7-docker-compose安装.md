@@ -1,3 +1,8 @@
+方案一：
+https://github.com/docker/compose/releases
+下载docker-compose-Linux-x86_64，改名docker-compose，上传到/usr/local/bin/，加执行权限 chmod +x /usr/local/bin/docker-compose
+
+方案二（不推荐）：
 1、首先检查linux有没有安装python-pip包，终端执行 pip -V
 
 2、没有python-pip包就执行命令 yum -y install epel-release
