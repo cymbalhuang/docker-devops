@@ -1,0 +1,48 @@
+docker run --privileged=true --detach     --hostname gitlab.appscomm.cn     --publish 8013:443 --publish 8011:8011 --publish 8012:22     --name mygitlab     --restart always     --volume /apps/gitlab/config:/etc/gitlab     --volume /apps/gitlab/logs:/var/log/gitlab     --volume /apps/gitlab/data:/var/opt/gitlab     mygitlab;
+
+docker run --privileged=true -d -p 8013:8081 --name nexus3 -v /apps/nexus:/nexus-data -e INSTALL4J_ADD_VM_PARAMS="-Xms512m -Xmx512m -XX:MaxDirectMemorySize=512m" sonatype/nexus3 
+
+docker run --privileged=true -d -p 6379:6379 --name myredis -v /apps/redis/data:/data  redis  redis-server --appendonly yes
+
+docker run --privileged=true -d --name mymysql -p 3306:3306 -v /apps/mysql/conf:/etc/mysql -v /apps/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 docker.io/mysql:5.7
+
+docker run --privileged=true -d --name mymysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 docker.io/mysql
+
+docker run --privileged=true -d --name raptomcat -p 8010:8080 --link mymysql:mysql-docker --link myredis:redis-docker -v /apps/rap1/ROOT:/usr/local/tomcat/webapps/ROOT tomcat
+
+docker run --privileged=true -t -i -d --name cloudera --hostname=quickstart.cloudera -p 8020:8020 -p 80:80 -p 8888:8888 -p 7180:7180 -p 21050:21050 -p 50070:50070 -p 50075:50075 -p 50010:50010 -p 50020:50020  cloudera/quickstart /usr/bin/docker-quickstart
+
+docker run --rm -ti -d --name emqx -p 18083:18083 -p 1883:1883 -p 4369:4369 -p 8883:8883 -p 8083:8083 -p 8084:8084 -p 8080:8080 emqx/emqx
+
+docker run --privileged=true -d --name myzookeeper -p 2181:2181 zookeeper
+
+docker run --privileged=true -d --name mynginx -p 80:80 -p 443:443 -v /apps/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /apps/nginx/conf/1690073_optimus.test.robot.appscomm.cn.key:/etc/nginx/cert/1690073_optimus.test.robot.appscomm.cn.key -v /apps/nginx/conf/1690073_optimus.test.robot.appscomm.cn.pem:/etc/nginx/cert/1690073_optimus.test.robot.appscomm.cn.pem nginx
+
+docker run -d --privileged=true --name gitlab-runner-nodejs --restart always -v /usr/local/lekang/gitlab-runner/config-nodejs:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock gitlab/gitlab-runner:latest --debug run
+
+docker ps -a|grep gitlab-runner |grep Exited|awk '{printf $1"\n"}'|xargs docker rm
+
+docker run --name skywalking-oap --restart always -d -p 11800:11800 -p 1234:1234 -p 12800:12800 apache/skywalking-oap-server
+
+
+docker run --name skywalking-ui --restart always -d -e SW_OAP_ADDRESS=skywalking-oap:12800 -p 8080:8080 apache/skywalking-ui
+
+docker run --name zipkin -d -p 9411:9411 openzipkin/zipkin
+
+docker run --privileged=true -d --name prometheus -p 9090:9090 -v /apps/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+
+docker run -d --name grafana -p 3000:3000 grafana/grafana
+
+docker network create elasticsearch_network
+
+docker run -d --name elasticsearch --net elasticsearch_network -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xmx1g -Xms1g" elasticsearch:7.3.2
+
+docker run -d --name spider163 chengtian/spider163:2.7.6 
+
+
+docker run --privileged=true -d -p 6380:6379 --name redis_test -v /apps/redis/data_test:/data  redis  redis-server --appendonly yes
+
+
+docker run -d --name mongo -p 27017:27017 mongo:latest
+
+docker run -d --name seata-server -p 8091:8091 seataio/seata-server:latest
