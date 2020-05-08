@@ -22,6 +22,10 @@ docker run -d --privileged=true --name gitlab-runner-debug --restart always -v /
   
   firewall-cmd --permanent --zone=public --add-rich-rule="rule family="ipv4" source address="172.17.0.0/16" port protocol="tcp" port="8011" accept"
   
+  或
+  
+  iptables -I INPUT -i docker0 -j ACCEPT
+  
   2）重建gitlab-runner容器提示warning ipv4 forwarding is disabled. networking will not work，原来是没打开ipv4 forward
   
   解决办法：
