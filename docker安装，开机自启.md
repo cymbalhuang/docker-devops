@@ -1,4 +1,4 @@
-yum install -y docker
+yum install -y docker-ce
 
 service docker start
 
